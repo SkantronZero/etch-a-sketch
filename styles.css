@@ -42,7 +42,14 @@ body{
 
 .grid{
     display: flex;
-    justify-content: center;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
     height: 600px;
     width: 600px;
+}
+.grid>*{
+    flex: 1 1 160px;
+}
+.grid:hover{
+    background-color: solid black;
 }
