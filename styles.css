@@ -1,0 +1,48 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    border: 1px red solid;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.selection_container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+}
+
+.option_buttons{
+    border-radius: 2px;
+    padding: 5px;
+    height: 80%;
+    width: 15%;
+}
+
+.grid_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px black solid;
+    height: 100%;
+    width: 100%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.grid{
+    display: flex;
+    justify-content: center;
+    height: 600px;
+    width: 600px;
+}
