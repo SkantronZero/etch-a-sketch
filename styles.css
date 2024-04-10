@@ -22,10 +22,11 @@ body{
 }
 
 .option_buttons{
-    border-radius: 2px;
+    border-radius: 4px;
     padding: 5px;
     height: 80%;
-    width: 15%;
+    width: 13%;
+
 }
 
 

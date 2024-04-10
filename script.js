@@ -1,17 +1,22 @@
-let grid_size = [16, 16];
+let grid_size = [16, 16]; //default values
+let selected_color = 'black';
 const grid_container = document.querySelector(".grid_container");
 const grid = document.querySelector(".grid");
 const grid_size_button = document.querySelector("#grid_size_button");
-const grid_text = document.createElement("div");
-grid_text.classList.add('cell');
 const clear_grid_button = document.querySelector("#clear_grid_button");
 const shape_toggle_button = document.querySelector("#shape_toggle_button");
+const color_select_button = document.querySelector("#color_select_button");
 
 
 function pixel_size_calc(width , height){
     let pixel_width = 600/width;
     let pixel_height = 600/height;
     return [pixel_width, pixel_height];
+}
+
+function pick_color_prompt(){
+    new_color = prompt('Enter a CSS color');
+    selected_color = new_color;
 }
 
 function prompt_grid_size(){
@@ -38,6 +43,10 @@ function prompt_grid_size(){
         grid_size = prompt(`Error \n ${grid_size[0]}x${grid_size[1]} was not valid.\nEnter a grid size \n(ex. 16x16, max 100x100)\n(must be square)`);
 
     }
+    if (grid_size[0] > 100 || grid_size[1] > 100){
+        grid_size = prompt(`Error \n Grid size cannot be great than 100x100.\nEnter a grid size \n(ex. 16x16, max 100x100)\n(must be square)`);
+    }
+
     else if(grid_size[0] != grid_size[1]){
         grid_size = prompt(`Error \n ${grid_size[0]}x${grid_size[1]} was not square.\nEnter a grid size \n(ex. 16x16, max 100x100)\n(must be square)`);
     }
@@ -49,12 +58,30 @@ function prompt_grid_size(){
 }
 
 function change_shape(){
-    let cellx = document.querySelectorAll('.cellx');
-    cellx.style.borderRadius = '50%';
-    // cellx.forEach(element, ()=>{
-    //     element.style.borderRadius = '50%';
-    // })
+    let grid_elementsx = document.querySelectorAll('.cellx');
+    let grid_arrayx = [...grid_elementsx];
+
+    grid_arrayx.forEach((element)=>{
+        if(element.style.borderRadius == '50%'){
+            element.style.borderRadius = '';
+        }
+        else{
+        element.style.borderRadius = '50%';
+        }
+    });
+    let grid_elementsy = document.querySelectorAll('.celly');
+    let grid_arrayy = [...grid_elementsy];
+
+    grid_arrayy.forEach((element)=>{
+        if(element.style.borderRadius == '50%'){
+            element.style.borderRadius = '';
+        }
+        else{
+        element.style.borderRadius = '50%';
+        }
+    });
 }
+
 
 function updateGridSize(){
     grid_size = prompt_grid_size();
@@ -64,6 +91,8 @@ function updateGridSize(){
     console.log(pixel_size);
 
     clear_grid();
+
+    reset_grid();
 
     for(let j = 0; j<grid_size[1]; j++){
 
@@ -80,7 +109,7 @@ function updateGridSize(){
             cellx.style.height = `${pixel_size[1]}px`;
             cellx.style.draggable = 'false';
             // cellx.addEventListener('mouseenter', event_log);
-            cellx.addEventListener('mouseenter', () => {cellx.style.background = 'black'});
+            cellx.addEventListener('mouseenter', () => {cellx.style.background = selected_color});
             // cellx.addEventListener('dragstart', () => {cellx.style.background = 'black'});
             celly.append(cellx);
         }
@@ -93,8 +122,6 @@ function updateGridSize(){
     console.log(color_grid);
     
     console.log(pixel_size[0]);
-
-    return grid_size;
 }
 
 function color_cell(event){
@@ -110,7 +137,7 @@ function event_log(event){
 }
 // event_log('New Message');
 
-function clear_grid(){
+function reset_grid(){
     let grid_elementsx = document.querySelectorAll('.cellx');
     let grid_arrayx = [...grid_elementsx];
 
@@ -125,10 +152,25 @@ function clear_grid(){
     });
 }
 
-// console.log(grid);
+function clear_grid(){
+    let grid_elementsx = document.querySelectorAll('.cellx');
+    let grid_arrayx = [...grid_elementsx];
+
+    grid_arrayx.forEach((element)=>{
+        element.style.backgroundColor = '';
+    });
+    let grid_elementsy = document.querySelectorAll('.celly');
+    let grid_arrayy = [...grid_elementsy];
+
+    grid_arrayy.forEach((element)=>{
+        element.style.backgroundColor = '';
+    });
+}
 
 grid_size_button.addEventListener("click", updateGridSize);
 
 clear_grid_button.addEventListener("click", clear_grid);
 
 shape_toggle_button.addEventListener("click", change_shape);
+
+color_select_button.addEventListener("click", pick_color_prompt);
